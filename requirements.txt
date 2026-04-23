@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+snowflake-connector-python
+pydantic
+python-dotenv
