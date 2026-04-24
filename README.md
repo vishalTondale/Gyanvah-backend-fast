@@ -58,11 +58,13 @@ Educational platform backend API built with FastAPI and Snowflake.
 3. Click "New +" → "Web Service"
 4. Connect your GitHub repository
 5. Configure the service:
-   - **Runtime**: Python 3
+   - **Runtime**: Python 3.13
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn fastapi_app:app --host 0.0.0.0 --port $PORT`
 6. Add environment variables in Render dashboard
 7. Deploy!
+
+> Note: This repo also includes `render.yaml` in `fastapi_backend/` to pin the Render runtime to Python 3.13 and avoid build errors with `pydantic-core` on newer Python versions.
 
 ### Railway
 1. Go to [railway.app](https://railway.app)
