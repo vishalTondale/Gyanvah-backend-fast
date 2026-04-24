@@ -103,6 +103,24 @@ class PythonCourseEpisode(BaseModel):
     NOTES_URL: Optional[str]
     IS_PUBLISHED: Optional[bool]
 
+class NetworkingEssentialsEpisode(BaseModel):
+    ID: Optional[int]
+    EPISODE_NUMBER: int
+    TITLE: str
+    DESCRIPTION: Optional[str]
+    YOUTUBE_URL: Optional[str]
+    NOTES_URL: Optional[str]
+    IS_PUBLISHED: Optional[bool]
+
+class GenAiCourseEpisode(BaseModel):
+    ID: Optional[int]
+    EPISODE_NUMBER: int
+    TITLE: str
+    DESCRIPTION: Optional[str]
+    YOUTUBE_URL: Optional[str]
+    NOTES_URL: Optional[str]
+    IS_PUBLISHED: Optional[bool]
+
 # Database connection functions
 def get_connection():
     """Get Snowflake database connection"""
@@ -353,6 +371,26 @@ async def get_python_course():
         for episode in published:
             if "ID" in episode and "EPISODE_ID" not in episode:
                 episode["EPISODE_ID"] = episode["ID"]
+        return published
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/networking-essentials", response_model=List[NetworkingEssentialsEpisode])
+async def get_networking_essentials():
+    """Get all published Networking Essentials course episodes"""
+    try:
+        episodes = query("NETWORKING_ESSENTIALS_VIDEOS", "EPISODE_NUMBER")
+        published = [e for e in episodes if e.get("IS_PUBLISHED", True)]
+        return published
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/genai-course", response_model=List[GenAiCourseEpisode])
+async def get_genai_course():
+    """Get all published GenAI course episodes"""
+    try:
+        episodes = query("GENAI_COURSE_VIDEOS", "EPISODE_NUMBER")
+        published = [e for e in episodes if e.get("IS_PUBLISHED", True)]
         return published
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
