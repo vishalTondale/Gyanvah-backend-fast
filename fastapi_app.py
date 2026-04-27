@@ -54,6 +54,7 @@ class Course(BaseModel):
     DESCRIPTION: Optional[str]
     CATEGORY: Optional[str]
     COURSE_LINK: Optional[str]
+    ROUTE_PATH: Optional[str]   #  ADDDED THIS
 
 class Book(BaseModel):
     BOOK_ID: Optional[int]
